@@ -2,6 +2,7 @@
 #include <iostream>
 #include "alien.hpp"
 #include "window.hpp"
+#include "buffer.hpp"
 
 using namespace std;
 

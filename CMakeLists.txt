@@ -4,6 +4,6 @@ cmake_minimum_required(VERSION 3.10)
 project(SpaceInvaders)
 
 # add the executable
-add_executable(SpaceInvaders main.cpp alien.cpp window.cpp)
+add_executable(SpaceInvaders main.cpp alien.cpp window.cpp buffer.cpp buffer_renderer.cpp)
 
 target_link_libraries(SpaceInvaders PUBLIC glfw GLEW GL)
