@@ -104,5 +104,5 @@ flycheck_*.el
 /network-security.data
 
 .cmake
-
+SpaceInvaders
 # End of https://www.toptal.com/developers/gitignore/api/c++,cmake,emacs
