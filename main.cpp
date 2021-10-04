@@ -1,5 +1,5 @@
 #include <iostream>
-#include "window.hpp"
+#include "application.hpp"
 #include "alien.hpp"
 
 using namespace std;
@@ -7,11 +7,11 @@ using namespace std;
 int main() {
 
   Alien alien = Alien();
+  Application app = Application();
 
-  Window window = Window();
-  window.initialise();
-  window.load(alien.image());
-  window.run();
+  app.load(alien.image());
+  app.update();
+  app.draw();
 
   return 0;
 }

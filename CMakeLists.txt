@@ -6,6 +6,6 @@ project(SpaceInvaders)
 add_compile_options(-Wall -Wextra -pedantic)
 
 # add the executable
-add_executable(SpaceInvaders main.cpp alien.cpp window.cpp)
+add_executable(SpaceInvaders main.cpp alien.cpp application.cpp)
 
 target_link_libraries(SpaceInvaders PUBLIC pthread SDL2)
