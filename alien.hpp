@@ -1,17 +1,19 @@
 #ifndef __ALIEN_H_
 #define __ALIEN_H_
 
-#include "GLFW/glfw3.h"
+#include <SDL2/SDL.h>
+#include"drawable.hpp"
 
-class Alien {
+class Alien:public Drawable {
   private:
-  int x;
-  int y;
+    SDL_Surface *_image;
+    int x;
+    int y;
 
   public:
-  Alien(int x, int y);
-  static void errorCallback(int error, const char* description);
-  void setupWindow();
+    Alien();
+    int loadImage();
+    SDL_Surface *image();
 };
 
 #endif // __ALIEN_H_

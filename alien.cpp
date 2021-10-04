@@ -2,14 +2,16 @@
 #include "GLFW/glfw3.h"
 #include <cstdio>
 
-Alien::Alien(int x,int y) : x(x), y(y) {}
-
-void Alien::errorCallback(int error, const char* description) {
-  fprintf(stderr, "Error: %s\n", description);
+Alien::Alien() {
+  _image = nullptr;
+  loadImage();
 }
 
-void Alien::setupWindow() {
-  glfwSetErrorCallback(errorCallback);
+int Alien::loadImage() {
+  _image = SDL_LoadBMP("./images/red_alien.bmp");
+  return 0;
+}
 
-  int *w, *p;
+SDL_Surface *Alien::image() {
+  return _image;
 }

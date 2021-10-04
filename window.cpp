@@ -1,55 +1,80 @@
-#include <GL/glew.h>
-#include <GLFW/glfw3.h>
-#include <cstdio>
+#include <SDL2/SDL_error.h>
+#include <SDL2/SDL_surface.h>
+#include <SDL2/SDL_video.h>
+#include<iostream>
 #include "window.hpp"
+#include <SDL2/SDL.h>
 
-Window::ERROR_CODE Window::setupWindowContext() {
-    if(!glfwInit()) {
-        return FAILED_GLFW_INIT;
+Window::Window() {}
+
+Window::ERROR_CODE Window::initialise() {
+    if(SDL_Init(SDL_INIT_VIDEO) < 0) {
+        std::cout << "Failed to initialise the SDL2 library.\n" << SDL_GetError() << "\n";
+        return FAILED_SDL2_INIT;
     }
 
-    window = glfwCreateWindow(1920, 1080, "SPACE INVADERS", NULL, NULL);
+    window = SDL_CreateWindow("SDL2 Window",
+                              SDL_WINDOWPOS_CENTERED,
+                              SDL_WINDOWPOS_CENTERED,
+                              1920, 1080,
+                                      0);
 
     if(!window) {
-        glfwTerminate();
-        return FAILED_TERMINATE;
+        std::cout << "Failed to create window.\n" << SDL_GetError() << "\n";
+        return FAILED_WINDOW;
     }
 
-    glfwMakeContextCurrent(window);
-    glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
-    glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
 
-    GLenum err = glewInit();
-    if(err != GLEW_OK) {
-        fprintf(stderr, "Error initialising GLEW.\n");
-        glfwTerminate();
-        return FAILED_GLEW_INIT;
+    windowSurface = SDL_GetWindowSurface(window);
+
+    if(!windowSurface) {
+        std::cout << "Failed to create window surface.\n" << SDL_GetError() << "\n";
+        return FAILED_WINDOW_SURFACE;
     }
+
     return SUCCESS;
 }
 
-Window::ERROR_CODE  Window::setupWindow() {
-    if(setupWindowContext() != SUCCESS) {
-        return FAILED_SETUP_WINDOW_CONTEXT;
+Window::ERROR_CODE Window::load(SDL_Surface *image) {
+    loadImage(image);
+
+    return SUCCESS;
+}
+
+void Window::run() {
+    bool keepWindowOpen = true;
+    while(keepWindowOpen) {
+
+        SDL_Event event;
+        while(SDL_PollEvent(&event) > 0) {
+            EVENT_CODE eventCode = handleEvent(&event);
+            if(eventCode == QUIT) {
+                keepWindowOpen = false;
+            }
+        }
+
+        SDL_UpdateWindowSurface(window);
+    }
+}
+
+Window::EVENT_CODE Window::handleEvent(SDL_Event *event) {
+    switch(event->type) {
+        case SDL_QUIT:
+            return QUIT;
+            break;
+        default:
+            return CONTINUE;
+            break;
+    }
+}
+
+Window::ERROR_CODE Window::loadImage(SDL_Surface *image) {
+    if(!image) {
+        std::cout << "Failed to load image\n" << SDL_GetError() << "\n";
+        return FAILED_IMAGE;
     }
 
-    GLint glVersion[2] = {-1, -1};
-    glGetIntegerv(GL_MAJOR_VERSION, &glVersion[0]);
-    glGetIntegerv(GL_MINOR_VERSION, &glVersion[1]);
-    printf("Running OpenGL with version: %d.%d\n", glVersion[0], glVersion[1]);
-
-    glClearColor(1.0, 1.0, 1.0, 1.0);
-
-    while(!glfwWindowShouldClose(window)) {
-        glClear(GL_COLOR_BUFFER_BIT);
-        glfwSwapBuffers(window);
-        glfwPollEvents();
-    }
-
-    glfwDestroyWindow(window);
-    glfwTerminate();
+    SDL_BlitSurface(image, NULL, windowSurface, NULL);
 
     return SUCCESS;
 }

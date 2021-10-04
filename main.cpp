@@ -1,16 +1,17 @@
-#include <GLFW/glfw3.h>
 #include <iostream>
-#include "alien.hpp"
 #include "window.hpp"
-#include "buffer.hpp"
+#include "alien.hpp"
 
 using namespace std;
 
-int main(int argc, char *argv[]) {
+int main() {
 
-  Alien a = Alien(1, 2);
+  Alien alien = Alien();
+
   Window window = Window();
-  window.setupWindow();
+  window.initialise();
+  window.load(alien.image());
+  window.run();
 
   return 0;
 }
