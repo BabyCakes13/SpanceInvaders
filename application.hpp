@@ -3,6 +3,8 @@
 
 #include<SDL2/SDL.h>
 
+#include "drawable.hpp"
+
 class Application {
     public:
         Application();
@@ -11,17 +13,18 @@ class Application {
         enum ERROR_CODE {SUCCESS, FAILED_SDL2_INIT, FAILED_WINDOW, FAILED_WINDOW_SURFACE, FAILED_IMAGE};
         enum EVENT_CODE {CONTINUE, QUIT};
 
-        ERROR_CODE initialise();
-        void update();
-        void draw();
-        EVENT_CODE handleEvent(SDL_Event *event);
-        ERROR_CODE load(SDL_Surface *image);
-        ERROR_CODE loadImage(SDL_Surface *image);
+        void run();
+        void addDrawables(Drawable *drawable);
 
     private:
         SDL_Window *_mainWindow;
         SDL_Surface *_mainWindowSurface;
         SDL_Event mainWindowEvent;
+        Drawable *_drawable;
+
+        ERROR_CODE initialise();
+        void updateSurface();
+        EVENT_CODE handleEvent(SDL_Event *event);
 };
 
 #endif // APPLICATION_H_

@@ -6,12 +6,10 @@ using namespace std;
 
 int main() {
 
-  Alien alien = Alien();
+  Alien alien;
   Application app = Application();
-
-  app.load(alien.image());
-  app.update();
-  app.draw();
+  app.addDrawables(&alien);
+  app.run();
 
   return 0;
 }

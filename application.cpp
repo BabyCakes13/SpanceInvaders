@@ -1,6 +1,5 @@
-#include "application.hpp"
-
 #include<iostream>
+#include "application.hpp"
 
 Application::Application() {
     initialise();
@@ -39,11 +38,15 @@ Application::ERROR_CODE Application::initialise() {
     return SUCCESS;
 }
 
-void Application::update() {
+void Application::addDrawables(Drawable *drawable) {
+    _drawable = drawable;
+}
+
+void Application::run() {
     bool keepWindowOpen = true;
     while(keepWindowOpen) {
-
         SDL_Event event;
+
         while(SDL_PollEvent(&event) > 0) {
             EVENT_CODE eventCode = handleEvent(&event);
             if(eventCode == QUIT) {
@@ -51,8 +54,8 @@ void Application::update() {
             }
         }
 
-        draw();
-
+        _drawable->draw(_mainWindowSurface);
+        updateSurface();
     }
 }
 
@@ -67,25 +70,6 @@ Application::EVENT_CODE Application::handleEvent(SDL_Event *event) {
     }
 }
 
-void Application::draw() {
+void Application::updateSurface() {
     SDL_UpdateWindowSurface(_mainWindow);
-}
-
-Application::ERROR_CODE Application::load(SDL_Surface *image) {
-    loadImage(image);
-
-    return SUCCESS;
-}
-
-
-
-Application::ERROR_CODE Application::loadImage(SDL_Surface *image) {
-    if(!image) {
-        std::cout << "Failed to load image\n" << SDL_GetError() << "\n";
-        return FAILED_IMAGE;
-    }
-
-    SDL_BlitSurface(image, NULL, _mainWindowSurface, NULL);
-
-    return SUCCESS;
 }
