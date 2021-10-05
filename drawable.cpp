@@ -19,3 +19,6 @@ int Drawable::loadImage(std::string imagePath) {
     validate();
   return 0;
 }
+void Drawable::_cropBackground(int r, int g, int b) {
+  SDL_SetColorKey(_image, SDL_TRUE, SDL_MapRGB( _image->format, r, g, b ));
+}

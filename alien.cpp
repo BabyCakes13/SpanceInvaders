@@ -12,8 +12,8 @@ Alien::Alien(int x, int y) {
   _position.w = 10;
   _position.h = 10;
 
-  loadImage("./images/red_alien.bmp");
-  _cropBackground();
+  _loadImage("./images/red_alien.bmp");
+  _cropBackground(255, 255, 255);
 }
 
 void Alien::updatePosition(int x, int y) {
@@ -21,6 +21,4 @@ void Alien::updatePosition(int x, int y) {
   _position.y = y;
 }
 
-void Alien::_cropBackground() {
-  SDL_SetColorKey(_image, SDL_TRUE, SDL_MapRGB( _image->format, 255, 255, 255 ));
 }

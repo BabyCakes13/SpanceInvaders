@@ -15,6 +15,7 @@ class Drawable {
     protected:
         SDL_Surface *_image;
         SDL_Rect _position;
+        void _cropBackground(int r, int g, int b);
 };
 
 #endif // DRAWABLE_H_
