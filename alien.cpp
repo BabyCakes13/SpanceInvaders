@@ -9,8 +9,8 @@ Alien::Alien(int x, int y) {
   _image = nullptr;
   _position.x = x;
   _position.x = y;
-  _position.w = 10;
-  _position.h = 10;
+  _position.w = 120;
+  _position.h = 100;
 
   _loadImage("./images/red_alien.bmp");
   _cropBackground(255, 255, 255);

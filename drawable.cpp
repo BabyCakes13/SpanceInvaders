@@ -3,7 +3,7 @@
 
 
 void Drawable::draw(SDL_Surface *windowSurface) {
-    SDL_BlitSurface(_image, NULL, windowSurface, &_position);
+    SDL_BlitScaled(_image, NULL, windowSurface, &_position);
 }
 
 bool Drawable::validate() {
