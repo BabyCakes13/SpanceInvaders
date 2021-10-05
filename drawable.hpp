@@ -6,6 +6,8 @@
 
 class Drawable {
     public:
+        virtual void _cropBackground() = 0;
+
         int loadImage(std::string imagePath);
         void draw(SDL_Surface *windowSurface);
         bool validate();

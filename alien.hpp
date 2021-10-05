@@ -9,6 +9,9 @@ class Alien: public Drawable {
     Alien();
     Alien(int x, int y);
     void updatePosition(int x, int y);
+
+  private:
+    void _cropBackground();
 };
 
 #endif // __ALIEN_H_
