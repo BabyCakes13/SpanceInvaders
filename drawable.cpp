@@ -1,4 +1,5 @@
 #include "drawable.hpp"
+#include <SDL2/SDL_surface.h>
 #include<iostream>
 
 
@@ -19,6 +20,17 @@ int Drawable::loadImage(std::string imagePath) {
     validate();
   return 0;
 }
+
+void Drawable::setPosition(int x, int y) {
+  _position.x = x;
+  _position.y = y;
+}
+
+void Drawable::move(int x, int y) {
+  _position.x += x;
+  _position.y += y;
+}
+
 void Drawable::_cropBackground(int r, int g, int b) {
   SDL_SetColorKey(_image, SDL_TRUE, SDL_MapRGB( _image->format, r, g, b ));
 }

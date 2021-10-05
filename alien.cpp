@@ -16,9 +16,6 @@ Alien::Alien(int x, int y) {
   _cropBackground(255, 255, 255);
 }
 
-void Alien::updatePosition(int x, int y) {
-  _position.x = x;
-  _position.y = y;
-}
-
+void Alien::calculatePosition() {
+  move(5, 0);
 }

@@ -25,6 +25,7 @@ class Application {
         ERROR_CODE initialise();
         void updateSurface();
         EVENT_CODE handleEvent(SDL_Event *event);
+        void updateDrawablePositions();
 };
 
 #endif // APPLICATION_H_

@@ -54,8 +54,15 @@ void Application::run() {
             }
         }
 
+        updateDrawablePositions();
         _drawable->draw(_mainWindowSurface);
         updateSurface();
+    }
+}
+
+void Application::updateDrawablePositions() {
+    for(auto drawable: _drawables) {
+        drawable->calculatePosition();
     }
 }
 

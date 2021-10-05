@@ -8,9 +8,8 @@ class Alien: public Drawable {
   public:
     Alien();
     Alien(int x, int y);
-    void updatePosition(int x, int y);
 
-  private:
+    void calculatePosition();
 };
 
 #endif // __ALIEN_H_
