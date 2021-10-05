@@ -6,19 +6,20 @@
 
 class Drawable {
     public:
-        virtual void _cropBackground() = 0;
-
-        int loadImage(std::string imagePath);
         void draw(SDL_Surface *windowSurface);
         virtual void calculatePosition() = 0;
-        bool validate();
 
     protected:
         SDL_Surface *_image;
         SDL_Rect _position;
+
+        int _loadImage(std::string imagePath);
         void _cropBackground(int r, int g, int b);
         void move(int x, int y);
         void setPosition(int x, int y);
+
+    private:
+        bool _validate();
 };
 
 #endif // DRAWABLE_H_

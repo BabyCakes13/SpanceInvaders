@@ -7,7 +7,7 @@ void Drawable::draw(SDL_Surface *windowSurface) {
     SDL_BlitScaled(_image, NULL, windowSurface, &_position);
 }
 
-bool Drawable::validate() {
+bool Drawable::_validate() {
      if(!_image) {
         std::cout << "Failed to load image\n" << SDL_GetError() << "\n";
         return false;
@@ -15,9 +15,9 @@ bool Drawable::validate() {
      return true;
 }
 
-int Drawable::loadImage(std::string imagePath) {
+int Drawable::_loadImage(std::string imagePath) {
     _image = SDL_LoadBMP(imagePath.c_str());
-    validate();
+    _validate();
   return 0;
 }
 

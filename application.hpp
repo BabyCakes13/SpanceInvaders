@@ -2,7 +2,7 @@
 #define APPLICATION_H_
 
 #include<SDL2/SDL.h>
-
+#include<vector>
 #include "drawable.hpp"
 
 class Application {
@@ -14,17 +14,18 @@ class Application {
         enum EVENT_CODE {CONTINUE, QUIT};
 
         void run();
-        void addDrawables(Drawable *drawable);
+        void addDrawable(Drawable* drawable);
 
     private:
         SDL_Window *_mainWindow;
         SDL_Surface *_mainWindowSurface;
         SDL_Event mainWindowEvent;
-        Drawable *_drawable;
+        std::vector<Drawable*> _drawables;
 
         ERROR_CODE initialise();
         void updateSurface();
         EVENT_CODE handleEvent(SDL_Event *event);
+        void drawDrawables();
         void updateDrawablePositions();
 };
 

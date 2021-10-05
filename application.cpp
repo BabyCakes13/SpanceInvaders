@@ -38,15 +38,14 @@ Application::ERROR_CODE Application::initialise() {
     return SUCCESS;
 }
 
-void Application::addDrawables(Drawable *drawable) {
-    _drawable = drawable;
+void Application::addDrawable(Drawable* drawable) {
+    _drawables.push_back(drawable);
 }
 
 void Application::run() {
     bool keepWindowOpen = true;
     while(keepWindowOpen) {
         SDL_Event event;
-
         while(SDL_PollEvent(&event) > 0) {
             EVENT_CODE eventCode = handleEvent(&event);
             if(eventCode == QUIT) {
@@ -55,8 +54,16 @@ void Application::run() {
         }
 
         updateDrawablePositions();
-        _drawable->draw(_mainWindowSurface);
+        drawDrawables();
         updateSurface();
+    }
+}
+
+void Application::drawDrawables() {
+    SDL_FillRect(_mainWindowSurface, NULL, SDL_MapRGB(_mainWindowSurface->format, 0, 0, 0));
+
+    for(auto drawable: _drawables) {
+        drawable->draw(_mainWindowSurface);
     }
 }
 
